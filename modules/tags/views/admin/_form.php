@@ -25,12 +25,12 @@
     if (empty($activeTab)) {
         $activeTab = $this->context->langCodeMain; // default language tab pane
         if ($model->hasI18nErrors()) { // select tab pane with error
-            $errorsI18n = $model->getI18nErrors();//var_dump($errorsI18n);
+            $errorsI18n = $model->getI18nErrors();
             foreach ($errorsI18n as $activeTab => $errors) {
                 break; // get language of first tab with error
             }
         }
-    }//var_dump($activeTab);
+    }
 
     $modelsI18n = $model->i18n;
 
@@ -71,7 +71,7 @@
                   foreach ($languages as $langCode => $lang):
                       $countryCode2 = strtolower(substr($langCode, 3, 2));
                       $flag = '<span class="flag f16"><span class="flag ' . $countryCode2 . '" title="' . $lang->name_orig . '"></span></span>';
-                      $labels = $modelsI18n[$langCode]->attributeLabels();//var_dump($modelsI18n[$langCode]->attributes);
+                      $labels = $modelsI18n[$langCode]->attributeLabels();
                 ?>
                 <div id="tab-<?= $langCode ?>"
                     class="tab-pane <?php if ($activeTab == $langCode): ?>active<?php endif; ?>"

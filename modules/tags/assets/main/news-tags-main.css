@@ -1,0 +1,38 @@
+
+.tags-list-item {
+    float: left;
+    margin-right: 10px;
+}
+.link-tags-list-item {
+}
+
+.tags-cloud-item {
+    float: left;
+    margin-right: 10px;
+}
+.link-tags-cloud-item {
+}
+.tags-cloud-item-count {
+}
+
+.font-6, .font-huge{
+    font-size: 200%;
+}
+.font-5, .font-largest{
+    font-size: 180%;
+}
+.font-4, .font-large{
+    font-size: 160%;
+}
+.font-3, .font-middle{
+    font-size: 140%;
+}
+.font-2, .font-normal{
+    font-size: 120%;
+}
+.font-1, .font-small{
+    font-size: 100%;
+}
+.font-0, .font-smallest{
+    font-size: 080%;
+}

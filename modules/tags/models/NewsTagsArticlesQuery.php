@@ -2,12 +2,14 @@
 
 namespace asb\yii2\modules\news_3b_171202\modules\tags\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[NewsTagsArticles]].
  *
  * @see NewsTagsArticles
  */
-class NewsTagsArticlesQuery extends \yii\db\ActiveQuery
+class NewsTagsArticlesQuery extends ActiveQuery
 {
     /*public function active()
     {
@@ -31,4 +33,5 @@ class NewsTagsArticlesQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
 }

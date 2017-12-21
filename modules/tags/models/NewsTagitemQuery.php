@@ -39,7 +39,7 @@ class NewsTagitemQuery extends ActiveQuery
      * @inheritdoc
      */
     public function count($q = '*', $db = null)
-    {//echo __METHOD__;var_dump($q);
+    {
         $this
             ->alias($this->tableAliasMain)
             ->leftJoin([$this->tableAliasI18n => NewsTagitemI18n::tableName()] //!! join here, not in search model
@@ -54,7 +54,7 @@ class NewsTagitemQuery extends ActiveQuery
      * @return NewsTagitem[]|array
      */
     public function all($db = null)
-    {//echo __METHOD__;
+    {
         $this
             ->alias($this->tableAliasMain)
             ->leftJoin([$this->tableAliasI18n => NewsTagitemI18n::tableName()] //!! join here, not in search model
@@ -63,7 +63,7 @@ class NewsTagitemQuery extends ActiveQuery
             ->select([
                 "{$this->tableAliasMain}.*",
                 "{$this->tableAliasI18n}.title AS title",
-            ]);//list ($sql, $parms) = Yii::$app->db->getQueryBuilder()->build($this);var_dump($sql);var_dump($parms);exit;
+            ]);
         return parent::all($db);
     }
 
@@ -72,7 +72,7 @@ class NewsTagitemQuery extends ActiveQuery
      * @return NewsTagitem|array|null
      */
     public function one($db = null)
-    {//echo __METHOD__;var_dump($this->langCodeMain);var_dump($this->where);
+    {
         if (isset($this->where['id'])) {
             $this->where["{$this->tableAliasMain}.id"] = $this->where['id'];
             unset($this->where['id']);
@@ -87,7 +87,7 @@ class NewsTagitemQuery extends ActiveQuery
             ->select([
                 "{$this->tableAliasMain}.*",
                 "{$this->tableAliasI18n}.title AS title",
-            ]);//list ($sql, $parms) = Yii::$app->db->getQueryBuilder()->build($this);var_dump($sql);var_dump($parms);exit;
+            ]);
         return parent::one($db);
     }
 }

@@ -41,7 +41,7 @@ class NewsTagitemSearch extends NewsTagitem
      * @return ActiveDataProvider
      */
     public function search($params)
-    {//echo __METHOD__;var_dump($params);
+    {
 
         //$query = NewsTagitem::find();
         $contentClassname = $this->module->model('NewsTagitem')->className();
@@ -57,7 +57,7 @@ class NewsTagitemSearch extends NewsTagitem
         $dataProvider->sort->attributes['title'] = [
             'asc'  => ['title' => SORT_ASC],
             'desc' => ['title' => SORT_DESC],
-        ];//var_dump($dataProvider->sort->attributes);exit;
+        ];
 
         $this->load($params);
 

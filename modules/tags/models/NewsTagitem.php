@@ -124,7 +124,7 @@ class NewsTagitem extends DataModelMultilang
      */
     public function validate($attributeNames = null, $clearErrors = true)
     {
-        $result = parent::validate($attributeNames, $clearErrors);//var_dump($result);var_dump($this->errors);
+        $result = parent::validate($attributeNames, $clearErrors);
         return $result;
     }
 
@@ -139,12 +139,12 @@ class NewsTagitem extends DataModelMultilang
         }
         $transaction = static::getDb()->beginTransaction();
         try {
-            $result = parent::save($runValidation, $attributeNames);//var_dump($result);var_dump($this->errors);
-            if ($result) {//var_dump($this->id);exit;
+            $result = parent::save($runValidation, $attributeNames);
+            if ($result) {
                 $result = $this->saveMultilang(); // save multilang models
             }
         } catch (Exception $e) {
-            $transaction->rollBack();//throw $e;
+            $transaction->rollBack();
 
             $msg = Yii::t($this->tcModule, 'Saving unsuccessfull');
             $msgFull = Yii::t($this->tcModule, 'Saving unsuccessfull by the reason') . ': ' . $e->getMessage();
@@ -152,13 +152,29 @@ class NewsTagitem extends DataModelMultilang
             $showError = isset($this->module->params['showAdminSqlErrors']) && $this->module->params['showAdminSqlErrors'];
             Yii::$app->session->setFlash('error', $showError ? $msgFull : $msg);
             return false;
-        }//var_dump($result);var_dump($this->errors);//exit;
+        }
         if ($result) {
             $transaction->commit();
         } else {
             $transaction->rollBack();
-        }//var_dump($result);exit;
+        }
         return $result;
+    }
+
+    /**
+     * @inheritdoc
+     * Delete also joined links to news-articles.
+     */
+    public function delete()
+    {
+        $mta = $this->module->model('NewsTagsArticles');
+
+        $mtaModels = $mta::find()->where(['tagitem_id' => $this->id])->all();
+        foreach ($mtaModels as $model) {
+            $model->delete();
+        }
+
+        return parent::delete();
     }
 
 }

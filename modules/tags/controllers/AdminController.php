@@ -48,7 +48,7 @@ class AdminController extends BaseAdminMulangController
         $behaviors['access']['rules'][] = ['allow' => true, 'actions' => ['create'], 'roles' => ['createNews']];
         $behaviors['access']['rules'][] = ['allow' => true, 'actions' => ['delete'], 'roles' => ['deleteNews']];
         $behaviors['access']['rules'][] = ['allow' => true, 'actions' => ['update'], 'roles' => ['roleNewsModerator']
-        ];//var_dump($behaviors['access']['rules']);exit;
+        ];
 
         return $behaviors;
     }
@@ -59,8 +59,8 @@ class AdminController extends BaseAdminMulangController
      */
     public function actionIndex($page = 1, $id = 0)
     {
-        $searchModel = $this->module->model('NewsTagitemSearch');//$searchModel = new NewsTagitemSearch();
-        $qryParams = Yii::$app->request->queryParams;//var_dump($qryParams);
+        $searchModel = $this->module->model('NewsTagitemSearch');
+        $qryParams = Yii::$app->request->queryParams;
         $dataProvider = $searchModel->search($qryParams);
 
         $pager = $dataProvider->getPagination();
@@ -186,10 +186,12 @@ class AdminController extends BaseAdminMulangController
      */
     protected function findModel($id)
     {
-        if (($model = NewsTagitem::findOne($id)) !== null) {
+        $modelNewsTagitem = $this->module->model('NewsTagitem');
+        if (($model = $modelNewsTagitem::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

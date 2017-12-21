@@ -5,6 +5,8 @@ return [
 
 // main
     'Tags cloud'        => 'Облако тегов',
+    'Popular news subject'
+                        => 'Популярные темы новостей',
 
 // admin
     'News tags'         => 'Теги новостей',
@@ -22,6 +24,24 @@ return [
     'Actions'           => 'Действия',
     'any'               => 'все',
     '<empty>'           => '<пусто>',
+
+// admin-article
+    'No tags assigned yet'
+                        => 'Нет присвоенных тегов',
+    'Add tag(s)'        => 'Добавить тег(и)',
+    'Delete marked tag(s)'
+                        => 'Удалить отмеченные теги',
+    "Didn't select any tag"
+                        => "Не выделено ни одного тега",
+    "Didn't select any tag for deletion"
+                        => "Не выделено ни одного тега для удаления",
+    "Added {N} selected tag(s)"
+                        => "Добавлено {N} выделенных тегов",
+    "Deleted {N} selected tag(s)"
+                        => "Удалено {N} выделенных тегов",
+    'No selected tags'  => 'Нет выделенных тегов',
+    'Delete selected tags?'
+                        => 'Уадвлить выделенные теги?',
 
 //models
     'ID'                => 'Ид',

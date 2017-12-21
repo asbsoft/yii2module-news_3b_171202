@@ -14,9 +14,9 @@
         "php": ">=5.4",
         "yiisoft/yii2": ">=2.0.12",
 
-        "asbsoft/yii2-common_2_170212": "~2.09",
-        "asbsoft/yii2module-news_1b_160430": "~1.0.3",
-        "asbsoft/yii2module-news_2b_161124": "~2.0.3"
+        "asbsoft/yii2-common_2_170212": "~2.10",
+        "asbsoft/yii2module-news_1b_160430": "~1.1",
+        "asbsoft/yii2module-news_2b_161124": "~2.1"
     },
     "autoload": {
         "psr-4": {

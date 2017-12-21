@@ -41,8 +41,6 @@
             ],
             [
                 'attribute' => 'title',
-//'enableSorting' => true,
-//'value'=>'???',
                 'options' => [
                     'class' => 'col-md-5',
                 ],
@@ -59,6 +57,10 @@
                     false => Yii::t('yii', 'No'),
                 ],
                 'filterInputOptions' => ['class' => 'form-control', 'prompt' => '-' . Yii::t($tc, 'any') . '-'],
+                'content' => function ($model, $key, $index, $column) {
+                    return $model->is_visible ? Yii::t('yii', 'Yes')
+                        : '<span class="bg-danger">' . Yii::t('yii', 'No') . '</span>';
+                },
                 'options' => [
                     //'style' => 'width:85px',
                     //'class' => 'width-min',

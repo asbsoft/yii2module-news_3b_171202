@@ -2,9 +2,11 @@
 // Config of inherited module-package
 //!! only add changes - they will merged with parent
 
+use asb\yii2\modules\news_3b_171202\models\NewsSearchByTag;
+
 use asb\yii2\common_2_170212\base\UniApplication;
 
-$type = empty(Yii::$app->type) ? false : Yii::$app->type;//var_dump($type);
+$type = empty(Yii::$app->type) ? false : Yii::$app->type;
 
 return  [
     'bootstrap' => [
@@ -25,5 +27,10 @@ return  [
                 ],
             ],
         ],
+    ],
+
+    // Shared models
+    'models' => [ // alias => class name or object array
+        'NewsSearchByTag' => NewsSearchByTag::className(),
     ],
 ];

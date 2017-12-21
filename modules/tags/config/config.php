@@ -4,12 +4,13 @@ use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitem;
 use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitemI18n;
 use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitemQuery;
 use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitemSearch;
+use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagsArticles;
 
 use asb\yii2\common_2_170212\base\UniApplication;
 use asb\yii2\common_2_170212\i18n\LangHelper;
 
 //var_dump(AdminController::$adminPath);exit;
-$type = empty(Yii::$app->type) ? false : Yii::$app->type;//var_dump($type);exit;
+$type = empty(Yii::$app->type) ? false : Yii::$app->type;
 
 return  [
     // External using classes
@@ -48,6 +49,12 @@ return  [
         'NewsTagitemI18n'   => NewsTagitemI18n::className(),
         'NewsTagitemQuery'  => NewsTagitemQuery::className(),
         'NewsTagitemSearch' => NewsTagitemSearch::className(),
+        'NewsTagsArticles'  => NewsTagsArticles::className(),
+    ],
+
+    'assets' => [ // alias => class name
+        'MainTagsAsset'  => 'asb\yii2\modules\news_3b_171202\modules\tags\assets\MainTagsAsset',
+        'AdminTagsAsset' => 'asb\yii2\modules\news_3b_171202\modules\tags\assets\AdminTagsAsset',
     ],
 
 ];

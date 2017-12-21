@@ -11,8 +11,14 @@ return [
     'editAllLanguages' => false,
   //'editAllLanguages' => true,
 
-    //lists oage size
+    // lists oage size
     'pageSizeAdmin' => 10,
+
+    // tags list box in add tags form
+    'sizeListBoxAdmin' => 3,
+
+    // minimal articles count to show tag in tags-cloud
+    'minCountShowTag' => 2,
 
     // tables names
     NewsTagitem::className() => [
