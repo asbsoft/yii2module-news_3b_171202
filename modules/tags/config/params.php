@@ -1,0 +1,28 @@
+<?php
+
+use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitem;
+use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitemI18n;
+use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagsArticles;
+
+return [
+    'label'   => 'Tags manager (submodule of News module)',
+
+    // set TRUE to show in edit form all registered languages, not only visible
+    'editAllLanguages' => false,
+  //'editAllLanguages' => true,
+
+    //lists oage size
+    'pageSizeAdmin' => 10,
+
+    // tables names
+    NewsTagitem::className() => [
+        'tableName' => '{{%news_tagitem}}',
+    ],
+    NewsTagitemI18n::className() => [
+        'tableName' => '{{%news_tagitem_i18n}}',
+    ],
+    NewsTagsArticles::className() => [
+        'tableName' => '{{%news_tags_articles}}',
+    ],
+
+];
