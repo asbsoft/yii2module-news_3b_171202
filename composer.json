@@ -1,0 +1,26 @@
+{
+    "name": "asbsoft/yii2module-news_3b_171202",
+    "description": "Second extension of Yii2 news module-package",
+    "keywords": ["yii2"],
+    "type": "yii2-module",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Alexandr Belogolovsky",
+            "email": "ab2014box@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "yiisoft/yii2": ">=2.0.12",
+
+        "asbsoft/yii2-common_2_170212": "~2.07",
+        "asbsoft/yii2module-news_1b_160430": "~1.0.3",
+        "asbsoft/yii2module-news_2b_161124": "~2.0.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "asb\\yii2\\modules\\news_3b_171202\\": ""
+        }
+    }
+}
