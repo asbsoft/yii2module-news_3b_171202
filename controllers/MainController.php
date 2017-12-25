@@ -11,6 +11,19 @@ use yii\web\NotFoundHttpException;
 
 class MainController extends BaseMainController
 {
+    /** Count of news in 'latest-news' action-widget */
+    public $countLatestNews = 4; // default value if not set
+    
+    public function init()
+    {
+        parent::init();
+
+        $param = 'countLatestNews';
+        if (isset($this->module->params[$param])) {
+            $this->$param = $this->module->params[$param];
+        }
+    }
+    
     public function actionListForTag($id, $page = 1)
     {
         $tagModel = $this->module->modules['tags']->getDataModel('NewsTagitem')->findOne($id);
@@ -40,4 +53,19 @@ class MainController extends BaseMainController
         return $this->render('list-for-tag', $this->renderData);
     }
 
+    public function actionLatestNews($count = null)
+    {
+        if ($count === null) {
+            $count = $this->countLatestNews;
+        }
+
+        $searchModel = $this->module->getDataModel('NewsSearchFront');
+        $dataProvider = $searchModel->search([]);
+        $dataProvider->pagination->pageSize = $count;
+
+        $models = $dataProvider->getModels();
+        return $this->renderPartial('latest-news', [
+            'models' => $models,
+        ]);
+    }
 }
