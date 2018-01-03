@@ -24,6 +24,7 @@ class NewsTagsArticles extends DataModel
         return '{{%news_tags_articles}}';
     }
 */
+
     /**
      * @inheritdoc
      */
@@ -110,15 +111,28 @@ class NewsTagsArticles extends DataModel
     public static function countArticles($tagId)
     {
         if (static::getCountValue($tagId) === false) {
-
             $module = Module::getModuleByClassname(Module::className()); // this (sub)module
-            $subModel = $module->module->model('News'); // model in module-container
-            $subQuery = $subModel::find()->select('id')->where(['is_visible' => true]);
+            $modelI18n = $module->module->model('NewsI18n');
 
-            $count = static::find()
-                ->where(['tagitem_id' => $tagId])
-                ->andWhere(['in', 'news_id', $subQuery])
-                ->count();
+            $subModel = $module->module->model('NewsSearchByTag'); // model in module-container
+
+            $dataProvider = $subModel->search([
+                'tag_id' => $tagId
+            ]);
+            $subQuery = $dataProvider->query;
+            $subQuery
+                ->alias($subQuery->tableAliasMain)
+                ->select("{$subQuery->tableAliasMain}.id")
+                ->leftJoin([$subQuery->tableAliasI18n => $modelI18n::tableName()]
+                    , "{$subQuery->tableAliasMain}.id = {$subQuery->tableAliasI18n}.news_id"
+                      . " AND {$subQuery->tableAliasI18n}.lang_code = '{$subQuery->langCodeMain}'");
+
+            $query = static::find();
+            $query->where(['tagitem_id' => $tagId])
+                  ->andWhere(['in', "{$query->tableAliasMain}.news_id", $subQuery])
+                  ;//list($sql, $sqlParams) = Yii::$app->db->getQueryBuilder()->build($query);var_dump($sql,$sqlParams);exit;
+
+            $count = $query->count();
 
             static::setCountValue($tagId, $count);
         }

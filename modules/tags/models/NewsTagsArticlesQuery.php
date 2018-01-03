@@ -11,27 +11,15 @@ use yii\db\ActiveQuery;
  */
 class NewsTagsArticlesQuery extends ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+    public $tableAliasMain = 'mta';
 
     /**
      * @inheritdoc
-     * @return NewsTagsArticles[]|array
      */
-    public function all($db = null)
+    public function __construct($modelClass, $config = [])
     {
-        return parent::all($db);
-    }
-
-    /**
-     * @inheritdoc
-     * @return NewsTagsArticles|array|null
-     */
-    public function one($db = null)
-    {
-        return parent::one($db);
+        parent::__construct($modelClass, $config);
+        $this->alias($this->tableAliasMain);
     }
 
 }

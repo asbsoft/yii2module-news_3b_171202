@@ -14,13 +14,16 @@
 
     $min = $this->context->minCountShowTag;
     $max = $this->context->maxCount;
-    function countRange($value, $min, $max) 
-    {
-        $range = 7; // 7 fonts: font-0 ... font-6
-        $val = $value - $min;
-        $rate = intval(round($range * $val / $max));
-        return $rate;
+    if (!function_exists('countRange')) {
+        function countRange($value, $min, $max) 
+        {
+            $range = 7; // 7 fonts: font-0 ... font-6
+            $val = $value - $min;
+            $rate = intval(round($range * $val / $max));
+            return $rate;
+        }
     }
+
 ?>
 <div class="tags-cloud">
 <?php if (!count($tagModels) == 0): ?>
