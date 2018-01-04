@@ -19,6 +19,9 @@ class NewsTagitemQuery extends ActiveQuery
     
     public $langCodeMain;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
@@ -30,23 +33,17 @@ class NewsTagitemQuery extends ActiveQuery
         }
     }
 
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * @inheritdoc
      */
-    public function count($q = '*', $db = null)
+    public function prepare($builder)
     {
-        $this
-            ->alias($this->tableAliasMain)
-            ->leftJoin([$this->tableAliasI18n => NewsTagitemI18n::tableName()] //!! join here, not in search model
-                , "{$this->tableAliasMain}.id = {$this->tableAliasI18n}.tagitem_id "
-                  . " AND {$this->tableAliasI18n}.lang_code = '{$this->langCodeMain}'"
-              );
-        return parent::count($q, $db);
+        $query = parent::prepare($builder);
+        $query->leftJoin([$this->tableAliasI18n => NewsTagitemI18n::tableName()] //!! join here, not in search model
+                  , "{$this->tableAliasMain}.id = {$this->tableAliasI18n}.tagitem_id "
+                    . " AND {$this->tableAliasI18n}.lang_code = '{$this->langCodeMain}'"
+                );
+        return $query;
     }
 
     /**
@@ -56,10 +53,6 @@ class NewsTagitemQuery extends ActiveQuery
     public function all($db = null)
     {
         $this
-            ->alias($this->tableAliasMain)
-            ->leftJoin([$this->tableAliasI18n => NewsTagitemI18n::tableName()] //!! join here, not in search model
-                , "{$this->tableAliasMain}.id = {$this->tableAliasI18n}.tagitem_id "
-                  . " AND {$this->tableAliasI18n}.lang_code = '{$this->langCodeMain}'")
             ->select([
                 "{$this->tableAliasMain}.*",
                 "{$this->tableAliasI18n}.title AS title",
@@ -78,11 +71,6 @@ class NewsTagitemQuery extends ActiveQuery
             unset($this->where['id']);
         }
         $this
-            ->alias($this->tableAliasMain)
-            ->leftJoin([$this->tableAliasI18n => NewsTagitemI18n::tableName()] //!! join here, not in search model
-                , "{$this->tableAliasMain}.id = {$this->tableAliasI18n}.tagitem_id "
-                  . " AND {$this->tableAliasI18n}.lang_code = '{$this->langCodeMain}'")
-            //->where(["{$alias}.id" => $id]) //!! not 'id' by default
             ->where($this->where)
             ->select([
                 "{$this->tableAliasMain}.*",
@@ -90,4 +78,5 @@ class NewsTagitemQuery extends ActiveQuery
             ]);
         return parent::one($db);
     }
+
 }
