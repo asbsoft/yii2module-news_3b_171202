@@ -1,7 +1,7 @@
 <?php
     /* @var $this asb\yii2\common_2_170212\web\UniView */
     /* @var $tagModels[] asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitem */
-    /* @var $tagCounts[] integet */
+    /* @var $tagCounts[] integer */
 
     use yii\helpers\Html;
 
@@ -15,7 +15,7 @@
     $min = $this->context->minCountShowTag;
     $max = $this->context->maxCount;
     if (!function_exists('countRange')) {
-        function countRange($value, $min, $max) 
+        function countRange($value, $min, $max)
         {
             $range = 7; // 7 fonts: font-0 ... font-6
             $val = $value - $min;
