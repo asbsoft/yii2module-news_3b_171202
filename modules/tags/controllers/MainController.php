@@ -46,10 +46,15 @@ class MainController extends BaseMultilangController
     /**
      * Tags cloud.
      * Use as widget by runAction().
+     * @param string $langCode
      * @return mixed
      */
-    public function actionTagsCloud()
+    public function actionTagsCloud($langCode = null)
     {
+        if (empty($langCode)) {
+            $langCode = $this->langCodeMain;
+        }
+
         $this->minCountShowTag = empty($this->module->params['minCountShowTag'])
             ? $this->minCountShowTag : $this->module->params['minCountShowTag'];
         $mta = $this->module->model('NewsTagsArticles');
@@ -63,13 +68,13 @@ class MainController extends BaseMultilangController
         $tagModels = [];
         $tagCounts = [];
         foreach ($models as $model) {
-            $countArticles = $mta::countArticles($model->id);
+            $countArticles = $mta::countArticles($model->id, $langCode);
             if ($countArticles >= $this->minCountShowTag) {
                 $tagModels[$model->id] = $model;
                 $tagCounts[$model->id] = $countArticles;
             }
         }
-        $this->maxCount = $mta::maxCount();
+        $this->maxCount = $mta::maxCount($langCode);
         
         $mta::saveAllCountsCache();
         

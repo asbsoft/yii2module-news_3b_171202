@@ -106,11 +106,12 @@ class NewsTagsArticles extends DataModel
 
     /**
      * @param integer $tagId
+     * @param string $langCode
      * @return integer count of articles for tag with id $tagId
      */
-    public static function countArticles($tagId)
+    public static function countArticles($tagId, $langCode)
     {
-        if (static::getCountValue($tagId) === false) {
+        if (static::getCountValue($tagId, $langCode) === false) {
             $module = Module::getModuleByClassname(Module::className()); // this (sub)module
             $modelI18n = $module->module->model('NewsI18n');
 
@@ -134,22 +135,23 @@ class NewsTagsArticles extends DataModel
 
             $count = $query->count();
 
-            static::setCountValue($tagId, $count);
+            static::setCountValue($tagId, $langCode, $count);
         }
-        $count = static::getCountValue($tagId);
+        $count = static::getCountValue($tagId, $langCode);
         return $count;
     }
 
     /**
+     * @param string $langCode
      * @return integer maximum value of atricles counters
      */
-    public static function maxCount()
+    public static function maxCount($langCode)
     {
-        if (empty(static::$_countsArticlesCache) && Yii::$app->cache->exists(self::CACHE_KEY)) {
-            static::$_countsArticlesCache = Yii::$app->cache->get(self::CACHE_KEY);
+        if (empty(static::$_countsArticlesCache[$langCode]) && Yii::$app->cache->exists(self::CACHE_KEY)) {
+            static::$_countsArticlesCache[$langCode] = Yii::$app->cache->get(self::CACHE_KEY);
         }
         $max = 0;
-        foreach( static::$_countsArticlesCache as $count) {
+        foreach (static::$_countsArticlesCache[$langCode] as $count) {
             if ($count > $max) {
                 $max = $count;
             }
@@ -174,17 +176,17 @@ class NewsTagsArticles extends DataModel
         static $_countsArticlesCache = [];
         Yii::$app->cache->delete(self::CACHE_KEY);
     }
-    protected static function setCountValue($tagId, $value)
+    protected static function setCountValue($tagId, $langCode, $value)
     {
-        static::$_countsArticlesCache[$tagId] = $value;
+        static::$_countsArticlesCache[$langCode][$tagId] = $value;
     }
-    protected static function getCountValue($tagId)
+    protected static function getCountValue($tagId, $langCode)
     {
         if (empty(static::$_countsArticlesCache) && Yii::$app->cache->exists(self::CACHE_KEY)) {
             static::$_countsArticlesCache = Yii::$app->cache->get(self::CACHE_KEY);
         }
-        if (isset(static::$_countsArticlesCache[$tagId])) {
-            return static::$_countsArticlesCache[$tagId];
+        if (isset(static::$_countsArticlesCache[$langCode][$tagId])) {
+            return static::$_countsArticlesCache[$langCode][$tagId];
         } else {
             return false;
         }
