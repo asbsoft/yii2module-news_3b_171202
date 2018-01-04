@@ -1,9 +1,11 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $searchModel asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitemSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $currentId integer current item id */
+    /* @var $this yii\web\View */
+    /* @var $searchModel asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitemSearch */
+    /* @var $dataProvider yii\data\ActiveDataProvider */
+    /* @var $currentId integer current item id */
+
+    use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagsArticles;
 
     use asb\yii2\common_2_170212\widgets\grid\ButtonedActionColumn;
     use asb\yii2\common_2_170212\widgets\Alert;
@@ -17,6 +19,8 @@
 
     $this->title = Yii::t($tc, 'News tags');
     $this->params['breadcrumbs'][] = $this->title;
+
+    $langCode = $this->context->langCodeMain;
 
 ?>
 <div class="news-tagitem-index">
@@ -61,6 +65,8 @@
                     return $model->is_visible ? Yii::t('yii', 'Yes')
                         : '<span class="bg-danger">' . Yii::t('yii', 'No') . '</span>';
                 },
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
                 'options' => [
                     //'style' => 'width:85px',
                     //'class' => 'width-min',
@@ -71,8 +77,8 @@
                 //'label' => Yii::t($this->context->tcModule, 'ID'),
                 'attribute' => 'id',
                 //'format' => 'text',
-                'headerOptions' => ['class' => 'align-center'],
-                'contentOptions' => ['class' => 'align-right'],
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-right'],
                 'options' => [
                     //'class' => 'width-min',
                     //'class' => 'col-md-1',
@@ -87,8 +93,22 @@
             [
                 'class' => ButtonedActionColumn::className(), // 'class' => 'yii\grid\ActionColumn',
                 'header' => Yii::t($tc, 'Actions'),
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-right'],
                 'options' => [
                     'class' => 'col-md-1',
+                ],
+            ],
+            [
+                'header' => Yii::t($tc, 'Articles' . " ({$langCode})"),
+                'content' => function ($model, $key, $index, $column) use ($langCode) {
+                    return NewsTagsArticles::countArticles($model->id, $langCode);
+                },
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-right'],
+                'options' => [
+                    //'class' => 'col-md-1',
+                    'style' => 'width:70px'
                 ],
             ],
         ],
