@@ -25,6 +25,8 @@ return [
     'Articles'          => 'Статей',
     'any'               => 'все',
     '<empty>'           => '<пусто>',
+    'Create'            => 'Создать',
+    'Save'              => 'Сохранить',
 
 // admin-article
     'No tags assigned yet'
