@@ -11,21 +11,28 @@
     use asb\yii2\common_2_170212\widgets\Alert;
 
     use yii\helpers\Html;
+    use yii\helpers\Url;
     use yii\grid\GridView;
 
     $gridHtmlClass = 'news-tags-list-grid';
 
     $tc = $this->context->tcModule;
+    $tcRoot = $this->context->module->module->tcModule;
 
-    $this->title = Yii::t($tc, 'News tags');
-    $this->params['breadcrumbs'][] = $this->title;
+    $title = Yii::t($tc, 'News tags');
+    $this->title = Yii::t($tcRoot, 'Adminer') . ' - ' . $title;
+
+    $this->params['breadcrumbs'][] = [
+        'label' => Html::encode($title),
+        'url' => Url::to(['index']),
+    ];
 
     $langCode = $this->context->langCodeMain;
 
 ?>
 <div class="news-tagitem-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <div class="col-md-12">
