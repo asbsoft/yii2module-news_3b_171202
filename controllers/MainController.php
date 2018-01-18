@@ -53,7 +53,7 @@ class MainController extends BaseMainController
         return $this->render('list-for-tag', $this->renderData);
     }
 
-    public function actionLatestNews($count = null)
+    public function actionLatestNews($count = null, $title = null)
     {
         if ($count === null) {
             $count = $this->countLatestNews;
@@ -66,6 +66,7 @@ class MainController extends BaseMainController
         $models = $dataProvider->getModels();
         return $this->renderPartial('latest-news', [
             'models' => $models,
+            'title' => $title,
         ]);
     }
 }

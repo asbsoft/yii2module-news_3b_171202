@@ -1,6 +1,7 @@
 <?php
     /* @var $this asb\yii2\common_2_170212\web\UniView */
     /* @var $models array of asb\yii2\modules\news_3b_171202\models\News */
+    /* @var $title string|null|false */
 
     use yii\helpers\Html;
 
@@ -14,10 +15,17 @@
     $lh = $this->context->module->langHelper;
     $langCode = $lh::normalizeLangCode(Yii::$app->language);
 
+    if ($title === null) {
+        $title = Yii::t($tc, 'Latest news'); // default
+    }
+
 ?>
 <div class="latest-news">
     <?php if ($models): ?>
-        <h3><?= Yii::t($tc, 'Latest news') ?></h3>
+        <?php if ($title): ?>
+           <h3><?= Html::encode($title) ?></h3>
+        <?php endif; ?>
+
         <table class="table-bordered">
         <tr style="vertical-align: top">
         <?php foreach ($models as $model): ?>
