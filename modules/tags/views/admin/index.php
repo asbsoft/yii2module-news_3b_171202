@@ -107,7 +107,7 @@
                 ],
             ],
             [
-                'header' => Yii::t($tc, 'Articles' . " ({$langCode})"),
+                'header' => Yii::t($tc, 'Articles') . " ({$langCode})",
                 'content' => function ($model, $key, $index, $column) use ($langCode) {
                     return NewsTagsArticles::countArticles($model->id, $langCode);
                 },
