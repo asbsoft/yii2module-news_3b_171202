@@ -31,7 +31,8 @@ class MainController extends BaseMultilangController
         $subModel = $this->module->model('NewsTagsArticles');
         $subQuery = $subModel::find()->select('tagitem_id')->where(['news_id' => $id]);
         $model = $this->module->model('NewsTagitem');
-        $query = $model::find();
+        $query = $model::find()
+            ->where(['is_visible' => true]);
         $alias = $query->tableAliasMain;
         $models = $query
             ->andWhere(['in', "{$alias}.id", $subQuery])
@@ -83,4 +84,5 @@ class MainController extends BaseMultilangController
             'tagCounts' => $tagCounts,
         ]);
     }
+
 }
