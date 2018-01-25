@@ -151,9 +151,11 @@ class NewsTagsArticles extends DataModel
             static::$_countsArticlesCache[$langCode] = Yii::$app->cache->get(self::CACHE_KEY);
         }
         $max = 0;
-        foreach (static::$_countsArticlesCache[$langCode] as $count) {
-            if ($count > $max) {
-                $max = $count;
+        if (!empty(static::$_countsArticlesCache)) {
+            foreach (static::$_countsArticlesCache[$langCode] as $count) {
+                if ($count > $max) {
+                    $max = $count;
+                }
             }
         }
         return $max;
