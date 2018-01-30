@@ -24,6 +24,11 @@ class MainController extends BaseMainController
         }
     }
     
+    /**
+     * List of news having tag $id.
+     * @param integer $id tag id
+     * @param integer $page page number
+     */
     public function actionListForTag($id, $page = 1)
     {
         $tagModel = $this->module->modules['tags']->getDataModel('NewsTagitem')->findOne($id);
@@ -46,13 +51,12 @@ class MainController extends BaseMainController
             $pager->page = $page - 1; //! from 0
         }
 
-        $this->renderData = [
-            'tagModel' => $tagModel,
-            'dataProvider' => $dataProvider,
-        ];
-        return $this->render('list-for-tag', $this->renderData);
+        return $this->render('list-for-tag', compact('tagModel', 'dataProvider'));
     }
 
+    /**
+     * List of $count latest news.
+     */
     public function actionLatestNews($count = null, $title = null)
     {
         if ($count === null) {
@@ -60,13 +64,25 @@ class MainController extends BaseMainController
         }
 
         $searchModel = $this->module->getDataModel('NewsSearchFront');
-        $dataProvider = $searchModel->search([]);
+        $params = $this->prepateListSearchParams();
+        $dataProvider = $searchModel->search($params);
         $dataProvider->pagination->pageSize = $count;
 
         $models = $dataProvider->getModels();
-        return $this->renderPartial('latest-news', [
-            'models' => $models,
-            'title' => $title,
-        ]);
+        return $this->renderPartial('latest-news', compact('models', 'title'));
+    }
+
+    /**
+     * View (one) latest news.
+     */
+    public function actionViewLatest()
+    {
+        $searchModel = $this->module->getDataModel('NewsSearchFront');
+        $params = $this->prepateListSearchParams();
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->pagination->pageSize = 1;
+        $models = $dataProvider->getModels();
+        $id = count($models) ? $models[0]->id : 0;
+        return $this->runAction('view', compact('id'));
     }
 }

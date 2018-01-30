@@ -11,7 +11,7 @@ return [
     'view/<id:\d+>'               => 'main/view',         // must be before
     'view/<slug:[a-z0-9\-]+>'     => 'main/view-by-slug', // must be after
     '<action:(list)>/<page:\d+>'  => 'main/<action>',
-    '<action:(index|list)>'       => 'main/<action>',
+    '<action:(index|list|view-latest)>' => 'main/<action>',
     '?'                           => 'main/index',
 /**/
 /*
