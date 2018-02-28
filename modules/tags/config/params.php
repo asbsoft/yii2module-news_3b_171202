@@ -11,10 +11,10 @@ return [
     'editAllLanguages' => false,
   //'editAllLanguages' => true,
 
-    // lists oage size
+    // admin list ðage size
     'pageSizeAdmin' => 10,
 
-    // tags list box in add tags form
+    // tags list box size in add tags admin-form for article
     'sizeListBoxAdmin' => 3,
 
     // minimal articles count to show tag in tags-cloud

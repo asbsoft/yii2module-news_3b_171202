@@ -10,6 +10,9 @@ use Yii;
 
 class AdminController extends BaseAdminController
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         $behaviors = parent::behaviors();
