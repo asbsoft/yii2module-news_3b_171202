@@ -4,8 +4,19 @@ use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitem;
 use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagitemI18n;
 use asb\yii2\modules\news_3b_171202\modules\tags\models\NewsTagsArticles;
 
+use asb\yii2\common_2_170212\behaviors\ParamsAccessBehaviour;
+
+
 return [
     'label'   => 'Tags manager (submodule of News module)',
+
+    'behaviors' => [
+        'params-access' => [
+            'class' => ParamsAccessBehaviour::className(),
+            'defaultRole' => 'roleAdmin',
+          //'readonlyParams' => [], // not need here
+        ],
+    ],
 
     // set TRUE to show in edit form all registered languages, not only visible
     'editAllLanguages' => false,

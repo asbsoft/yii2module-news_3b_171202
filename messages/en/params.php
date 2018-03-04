@@ -1,5 +1,5 @@
 <?php
 //en
 return [
-    'countLatestNews' => "count of news in 'latest-news' action-widget",
+    'countLatestNews' => "count of news in 'latest-news' action-widget by default",
 ];
