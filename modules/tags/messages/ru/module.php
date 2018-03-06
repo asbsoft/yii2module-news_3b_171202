@@ -2,6 +2,7 @@
 //ru
 return [
     'News tags manager' => 'Менеджер тегов новостей',
+    'Tags manager (submodule of News module)' => 'Менеджер тегов (подмодуль модуля новостей)',
 
 // main
     'Tags cloud'        => 'Облако тегов',
