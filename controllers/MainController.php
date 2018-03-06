@@ -11,6 +11,9 @@ use yii\web\NotFoundHttpException;
 
 class MainController extends BaseMainController
 {
+    public $titleCss = 'class="h3"';
+    public $noNewsMessageCss = 'class="h4 text-center"';
+
     /** Count of news in 'latest-news' action-widget */
     public $countLatestNews = 4; // default value if not set
     
@@ -57,9 +60,9 @@ class MainController extends BaseMainController
     /**
      * List of $count latest news.
      */
-    public function actionLatestNews($count = null, $title = null)
+    public function actionLatestNews($count = null, $title = null, $emptyIfNothing = false)
     {
-        if ($count === null) {
+        if ($count === null) { // if $count === 0 will show nothing
             $count = $this->countLatestNews;
         }
 
@@ -69,7 +72,13 @@ class MainController extends BaseMainController
         $dataProvider->pagination->pageSize = $count;
 
         $models = $dataProvider->getModels();
-        return $this->renderPartial('latest-news', compact('models', 'title'));
+
+        $options = [
+            'titleCss' => $this->titleCss,
+            'noNewsMessageCss' => $this->noNewsMessageCss,
+        ];
+
+        return $this->renderPartial('latest-news', compact('count', 'models', 'title', 'emptyIfNothing', 'options'));
     }
 
     /**
